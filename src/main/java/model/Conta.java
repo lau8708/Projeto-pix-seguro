@@ -25,8 +25,16 @@ public class Conta {
         return saldo;
     }
 
+    public void setSaldo(BigDecimal saldo) {
+        this.saldo = saldo;
+    }
+
     public BigDecimal getSaldoReservado() {
         return saldoReservado;
+    }
+
+    public void setSaldoReservado(BigDecimal saldoReservado) {
+        this.saldoReservado = saldoReservado;
     }
 
     public BigDecimal getSaldoDisponivel(){
