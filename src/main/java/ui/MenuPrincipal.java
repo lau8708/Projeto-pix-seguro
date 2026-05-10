@@ -1,10 +1,7 @@
 package ui;
 
 import model.Usuario;
-import services.AdminService;
-import services.AuthService;
-import services.PixService;
-import services.UsuarioService;
+import services.*;
 
 import java.util.Scanner;
 
@@ -19,8 +16,10 @@ public class MenuPrincipal {
     private AuthConsole authConsole;
     private PixConsole pixConsole;
     private AdminConsole adminConsole;
+    private ContaConsole contaConsole;
 
-    public MenuPrincipal(AuthService authService, UsuarioService usuarioService, PixService pixService, AdminService adminService) {
+    public MenuPrincipal(AuthService authService, UsuarioService usuarioService,
+                         PixService pixService, AdminService adminService, ContaService contaService) {
         this.scanner = new Scanner(System.in);
         this.authService = authService;
         this.usuarioService = usuarioService;
@@ -30,6 +29,7 @@ public class MenuPrincipal {
         this.authConsole = new AuthConsole(scanner, authService, usuarioService);
         this.pixConsole = new PixConsole(scanner, pixService);
         this.adminConsole = new AdminConsole(adminService);
+        this.contaConsole = new ContaConsole(scanner, contaService);
     }
 
     public void iniciar(){
@@ -69,18 +69,22 @@ public class MenuPrincipal {
     private void exibirMenuCliente(){
         String nome = authService.getUsuarioLogado().getNome();
         System.out.println("\n=== Bem Vindo, " + nome.toUpperCase() + "===");
-        System.out.println("1- Enviar PIX");
-        System.out.println("2- PIX pendentes");
-        System.out.println("3- Histórico");
+        System.out.println("1. Depositar");
+        System.out.println("2. Sacar");
+        System.out.println("3- Enviar PIX");
+        System.out.println("4- PIX pendentes");
+        System.out.println("5- Histórico");
         System.out.println("0- Logout");
         System.out.print("Escolha: ");
 
         String opcao = scanner.nextLine().trim();
 
         switch (opcao){
-            case "1" -> pixConsole.enviarPix();
-            case "2" -> pixConsole.exibirPendentes();
-            case "3" -> pixConsole.exibirHistorico();
+            case "1" -> contaConsole.depositar();
+            case "2" -> contaConsole.sacar();
+            case "3" -> pixConsole.enviarPix();
+            case "4" -> pixConsole.exibirPendentes();
+            case "5" -> pixConsole.exibirHistorico();
             case "0" -> {
                 authService.logout();
                 System.out.println("Logout realizado com sucesso");

@@ -1,10 +1,7 @@
 import repository.ContaRepository;
 import repository.TransacaoRepository;
 import repository.UsuarioRepository;
-import services.AdminService;
-import services.AuthService;
-import services.PixService;
-import services.UsuarioService;
+import services.*;
 import ui.MenuPrincipal;
 
 public class Main {
@@ -21,9 +18,10 @@ public class Main {
         UsuarioService usuarioService = new UsuarioService(usuarioRepository, contaRepository);
         PixService pixService = new PixService(contaRepository, transacaoRepository, authService);
         AdminService adminService = new AdminService(contaRepository, transacaoRepository, authService);
+        ContaService contaService = new ContaService(contaRepository, authService);
 
         // ui — recebe os services
-        MenuPrincipal menu = new MenuPrincipal(authService, usuarioService, pixService, adminService);
+        MenuPrincipal menu = new MenuPrincipal(authService, usuarioService, pixService, adminService, contaService);
         menu.iniciar();
     }
 }
