@@ -1,5 +1,6 @@
 package services;
 
+import exception.AcessoNegadoException;
 import model.Conta;
 import model.Transacao;
 import repository.ContaRepository;
@@ -23,14 +24,14 @@ public class AdminService {
 
     public Collection<Conta> listarTodasContas() {
         if (!authService.isAdmin()) {
-            throw new RuntimeException("Acesso negado.");
+            throw new AcessoNegadoException();
         }
         return contaRepository.listarTodas();
     }
 
     public Collection<Transacao> listarTodasTransacoes() {
         if (!authService.isAdmin()) {
-            throw new RuntimeException("Acesso negado.");
+            throw new AcessoNegadoException();
         }
         return transacaoRepository.listarTodas();
     }

@@ -1,5 +1,8 @@
 package services;
 
+import exception.CpfInvalidoException;
+import exception.CpfJaCadastradoException;
+import exception.SenhaInvalidaException;
 import model.Conta;
 import model.Usuario;
 import model.enums.PerfilUsuario;
@@ -39,15 +42,15 @@ public class UsuarioService {
 
     public void cadastrar(String nome, String cpf, String senha){
         if (!validarCpf(cpf)){
-            throw new IllegalArgumentException("CPF inválido");
+            throw new CpfInvalidoException();
         }
 
         if (!validarSenha(senha)){
-            throw new IllegalArgumentException("Senha inválida");
+            throw new SenhaInvalidaException();
         }
 
         if (usuarioRepository.existeCpf(cpf)){
-            throw new IllegalArgumentException("CPF já cadastrado");
+            throw new CpfJaCadastradoException();
         }
 
         PerfilUsuario perfilUsuario;
