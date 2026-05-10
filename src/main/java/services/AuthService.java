@@ -1,5 +1,8 @@
 package services;
 
+import exception.AcessoNegadoException;
+import exception.SenhaInvalidaException;
+import exception.UsuarioNaoEncontradoException;
 import model.Usuario;
 import model.enums.PerfilUsuario;
 import repository.UsuarioRepository;
@@ -17,11 +20,11 @@ public class AuthService {
         Usuario usuario = usuarioRepository.buscarPorCpf(cpf);
 
         if (usuario == null){
-            throw new RuntimeException("Usuário não encontrado");
+            throw new UsuarioNaoEncontradoException();
         }
 
         if (!usuario.verificarSenha(senha)){
-            throw new RuntimeException("Senha incorreta");
+            throw new SenhaInvalidaException();
         }
 
         usuarioLogado = usuario;
@@ -34,7 +37,7 @@ public class AuthService {
 
     public Usuario getUsuarioLogado(){
         if (usuarioLogado == null){
-            throw new RuntimeException("Nenhum usuário logado");
+            throw new AcessoNegadoException();
         }
         return usuarioLogado;
     }

@@ -1,5 +1,6 @@
 package services;
 
+import exception.*;
 import model.Conta;
 import model.Transacao;
 import model.enums.StatusTransacao;
@@ -32,22 +33,22 @@ public class PixService {
         // verifica se o destinatario existe
         Conta contaDestino = contaRepository.buscarPorCpf(cpfDestino);
         if (contaDestino == null) {
-            throw new RuntimeException("Conta destinatária não encontrada.");
+            throw new ContaNaoEncontradaException();
         }
 
         // impede pix para si mesmo
         if (contaOrigem.getId().equals(contaDestino.getId())) {
-            throw new RuntimeException("Não é possível enviar PIX para si mesmo.");
+            throw new AutoTransferenciaException();
         }
 
         // verifica se o valor é maior que zero
         if (valor.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new RuntimeException("O valor do PIX deve ser maior que zero.");
+            throw new ValorInvalidoException();
         }
 
         // verifica se tem saldo disponivel suficiente
         if (contaOrigem.getSaldoDisponivel().compareTo(valor) < 0) {
-            throw new RuntimeException("Saldo insuficiente.");
+            throw new SaldoInsuficienteException();
         }
 
         // reserva o saldo do remetente
@@ -65,26 +66,26 @@ public class PixService {
         // busca a transacao pelo id
         Transacao transacao = transacaoRepository.buscarPorId(idTransacao);
         if (transacao == null) {
-            throw new RuntimeException("Transação não encontrada.");
+            throw new TransacaoNaoEncontradaException();
         }
 
         // garante que só o destinatário pode aceitar
         Conta contaLogada = contaRepository
                 .buscarPorCpf(authService.getUsuarioLogado().getCpf());
         if (!transacao.getContaDestino().getId().equals(contaLogada.getId())) {
-            throw new RuntimeException("Você não é o destinatário desta transação.");
+            throw new DestinatarioInvalidoException();
         }
 
         // impede aceitar pix expirado
         if (transacao.isExpirada()) {
             transacao.setStatusTransacao(StatusTransacao.REJEITADA);
             transacaoRepository.salvar(transacao);
-            throw new RuntimeException("PIX expirado e cancelado automaticamente.");
+            throw new TransacaoExpiradaException();
         }
 
         // impede aceitar pix que nao esta pendente
         if (transacao.getStatusTransacao() != StatusTransacao.PENDENTE) {
-            throw new RuntimeException("Esta transação não está mais pendente.");
+            throw new TransacaoNaoPendenteException();
         }
 
         BigDecimal valor = transacao.getValor();
@@ -108,19 +109,19 @@ public class PixService {
         // busca a transacao pelo id
         Transacao transacao = transacaoRepository.buscarPorId(idTransacao);
         if (transacao == null) {
-            throw new RuntimeException("Transação não encontrada.");
+            throw new TransacaoNaoEncontradaException();
         }
 
         // garante que só o destinatário pode rejeitar
         Conta contaLogada = contaRepository
                 .buscarPorCpf(authService.getUsuarioLogado().getCpf());
         if (!transacao.getContaDestino().getId().equals(contaLogada.getId())) {
-            throw new RuntimeException("Você não é o destinatário desta transação.");
+            throw new DestinatarioInvalidoException();
         }
 
         // impede rejeitar pix que nao esta pendente
         if (transacao.getStatusTransacao() != StatusTransacao.PENDENTE) {
-            throw new RuntimeException("Esta transação não está mais pendente.");
+            throw new TransacaoNaoPendenteException();
         }
 
         // libera a reserva do remetente devolvendo o valor
