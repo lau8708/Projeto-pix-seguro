@@ -5,6 +5,8 @@ import model.Conta;
 import model.Transacao;
 import services.AdminService;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 
 public class AdminConsole {
@@ -60,10 +62,15 @@ public class AdminConsole {
                         + " (" + t.getContaDestino().getUsuario().getCpf() + ")");
                 System.out.println("Valor: R$ " + t.getValor());
                 System.out.println("Status: " + t.getStatusTransacao());
-                System.out.println("Data: " + t.getDataHora());
+                System.out.println("Data: " + formatarData(t.getDataHora()));
             }
         } catch (PixException e) {
             System.out.println("Erro: " + e.getMessage());
         }
+    }
+
+    private String formatarData(LocalDateTime dataHora){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return dataHora.format(formatter);
     }
 }
