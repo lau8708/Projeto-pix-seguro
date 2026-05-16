@@ -71,9 +71,10 @@ public class MenuPrincipal {
         System.out.println("\n=== Bem Vindo, " + nome.toUpperCase() + "===");
         System.out.println("1. Depositar");
         System.out.println("2. Sacar");
-        System.out.println("3- Enviar PIX");
-        System.out.println("4- PIX pendentes");
-        System.out.println("5- Histórico");
+        System.out.println("3- Ver saldo");
+        System.out.println("4- Enviar PIX");
+        System.out.println("5- PIX Pendentes");
+        System.out.println("6- Histórico");
         System.out.println("0- Logout");
         System.out.print("Escolha: ");
 
@@ -82,9 +83,10 @@ public class MenuPrincipal {
         switch (opcao){
             case "1" -> contaConsole.depositar();
             case "2" -> contaConsole.sacar();
-            case "3" -> pixConsole.enviarPix();
-            case "4" -> pixConsole.exibirPendentes();
-            case "5" -> pixConsole.exibirHistorico();
+            case "3" -> contaConsole.exibirSaldo();
+            case "4" -> pixConsole.enviarPix();
+            case "5" -> pixConsole.exibirPendentes();
+            case "6" -> pixConsole.exibirHistorico();
             case "0" -> {
                 authService.logout();
                 System.out.println("Logout realizado com sucesso");

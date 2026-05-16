@@ -57,4 +57,12 @@ public class ContaConsole {
             System.out.println("Valor inválido. Use o formato 100.00");
         }
     }
+
+    public void exibirSaldo(){
+        Conta conta = contaService.buscarContaLogada();
+        System.out.println("\n=== SALDO ===");
+        System.out.println("Saldo total:      R$ " + conta.getSaldo());
+        System.out.println("Saldo reservado:  R$ " + conta.getSaldoReservado());
+        System.out.println("Saldo disponível: R$ " + conta.getSaldoDisponivel());
+    }
 }
