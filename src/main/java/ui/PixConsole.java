@@ -6,6 +6,8 @@ import model.enums.StatusTransacao;
 import services.PixService;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -115,7 +117,7 @@ public class PixConsole {
             System.out.println("Para: " + t.getContaDestino().getUsuario().getNome());
             System.out.println("Valor: R$ " + t.getValor());
             System.out.println("Status: " + traduzirStatus(t.getStatusTransacao()));
-            System.out.println("Data: " + t.getDataHora());
+            System.out.println("Data: " + formatarData(t.getDataHora()));
         }
     }
 
@@ -125,5 +127,10 @@ public class PixConsole {
             case ACEITA -> "Aceita";
             case REJEITADA -> "Rejeitada";
         };
+    }
+
+    private String formatarData(LocalDateTime dataHora){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return dataHora.format(formatter);
     }
 }

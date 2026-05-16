@@ -56,7 +56,7 @@ public class UsuarioService {
         PerfilUsuario perfilUsuario;
 
         if (usuarioRepository.estaVazio()){
-            perfilUsuario = PerfilUsuario.ADMIN;
+            perfilUsuario = PerfilUsuario.ADMIN;  // Ao cadastrar o primeiro usuário no sistema, ele vira o ADM
         }
         else {
             perfilUsuario = PerfilUsuario.CLIENTE;
