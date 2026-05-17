@@ -35,15 +35,6 @@ Baixe o `pix-seguro.jar` na seção [Releases](https://github.com/lau8708/pix-se
 java -jar pix-seguro.jar
 ```
 
-### Opção 2 - Pelo IntelliJ
-```bash
-git clone https://github.com/lau8708/pix-seguro.git
-```
-
-- Abra o intelliJ ➔ `File ➔ Open ➔ selecione a pasta`
-- Aguarde o Maven carregar as dependências
-- Rode a classe `Main.java`
-
 ---
 
 ## Arquitetura
