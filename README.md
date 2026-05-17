@@ -29,8 +29,7 @@ Ter o java instalado. Verifique com:
 java -version
 ```
 
-### Opção 1 - Executável (mais simples)
-Baixe o `pix-seguro.jar` na seção [Releases](https://github.com/lau8708/pix-seguro/releases) e rode:
+Baixe o `pix-seguro.jar` na seção [Releases](https://github.com/lau8708/Projeto-pix-seguro/releases) e rode:
 ```bash
 java -jar pix-seguro.jar
 ```
@@ -129,10 +128,31 @@ O projeto conta com **45 testes unitários** cobrindo todos os services:
 | `PixServiceTest`     | 15 testes |
 | `ContaServiceTest`   | 11 testes |
 
-Para rodar os testes:
+
+### Como rodar os testes
+
+**Passo 1 — Baixe o código fonte**
+
+Na página do repositório clique em **Code → Download ZIP**, extraia a pasta e abra o terminal dentro dela.
+
+Ou se tiver Git instalado:
+```bash
+git clone https://github.com/lau8708/Projeto-pix-seguro.git
+cd Projeto-pix-seguro
+```
+
+**Passo 2 — Verifique se o Maven está instalado**
+```bash
+mvn -version
+```
+Caso não tenha, baixe em: https://maven.apache.org/download.cgi
+
+**Passo 3 — Rode os testes**
 ```bash
 mvn test
 ```
+
+O resultado aparece no terminal mostrando quantos testes passaram e quantos falharam.
 
 ---
 
