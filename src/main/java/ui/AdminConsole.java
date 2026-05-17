@@ -38,7 +38,7 @@ public class AdminConsole {
                 System.out.println("Saldo Disponível: R$ " + c.getSaldoDisponivel());
             }
         } catch (PixException e) {
-            System.out.println("Erro: " + e.getMessage());
+            System.out.println(Cores.vermelho("Erro: " + e.getMessage()));
         }
     }
 
@@ -65,7 +65,7 @@ public class AdminConsole {
                 System.out.println("Data: " + formatarData(t.getDataHora()));
             }
         } catch (PixException e) {
-            System.out.println("Erro: " + e.getMessage());
+            System.out.println(Cores.vermelho("Erro: " + e.getMessage()));
         }
     }
 

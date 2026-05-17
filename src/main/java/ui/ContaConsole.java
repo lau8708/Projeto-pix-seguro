@@ -27,12 +27,12 @@ public class ContaConsole {
             BigDecimal valor = new BigDecimal(valorStr);
             contaService.depositar(valor);
             Conta conta = contaService.buscarContaLogada();
-            System.out.println("Depósito realizado com sucesso!");
+            System.out.println(Cores.verde("Depósito realizado com sucesso!"));
             System.out.println("Saldo atual: R$ " + conta.getSaldo());
         } catch (PixException e) {
-            System.out.println("Erro ao depositar: " + e.getMessage());
+            System.out.println(Cores.vermelho("Erro ao depositar: " + e.getMessage()));
         } catch (NumberFormatException e) {
-            System.out.println("Valor inválido. Use o formato 100.00");
+            System.out.println(Cores.vermelho("Valor inválido. Use o formato 100.00"));
         }
     }
 
@@ -49,12 +49,12 @@ public class ContaConsole {
             BigDecimal valor = new BigDecimal(valorStr);
             contaService.sacar(valor);
             conta = contaService.buscarContaLogada();
-            System.out.println("Saque realizado com sucesso!");
+            System.out.println(Cores.verde("Saque realizado com sucesso!"));
             System.out.println("Saldo atual: R$ " + conta.getSaldo());
         } catch (PixException e) {
-            System.out.println("Erro ao sacar: " + e.getMessage());
+            System.out.println(Cores.vermelho("Erro ao sacar: " + e.getMessage()));
         } catch (NumberFormatException e) {
-            System.out.println("Valor inválido. Use o formato 100.00");
+            System.out.println(Cores.vermelho("Valor inválido. Use o formato 100.00"));
         }
     }
 
