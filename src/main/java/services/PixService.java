@@ -74,6 +74,8 @@ public class PixService {
 
         // impede aceitar pix expirado
         if (transacao.isExpirada()) {
+            Conta contaOrigem = transacao.getContaOrigem();
+            contaOrigem.setSaldoReservado(contaOrigem.getSaldoReservado().subtract(transacao.getValor()));
             transacao.setStatusTransacao(StatusTransacao.REJEITADA);
             transacaoRepository.salvar(transacao);
             throw new TransacaoExpiradaException();
