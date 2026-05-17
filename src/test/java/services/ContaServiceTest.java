@@ -96,12 +96,12 @@ public class ContaServiceTest {
 
     @Test
     void deveLancarExcecaoQuandoSaqueZero(){
-        assertThrows(ValorInvalidoException.class, () -> contaService.sacar(BigDecimal.ZERO));
+        assertThrows(ValorSaqueInvalidoException.class, () -> contaService.sacar(BigDecimal.ZERO));
     }
 
     @Test
     void deveLancarExcecaoQuandoSaqueNegativo(){
-        assertThrows(ValorInvalidoException.class, () -> contaService.sacar(new BigDecimal("-100.00")));
+        assertThrows(ValorSaqueInvalidoException.class, () -> contaService.sacar(new BigDecimal("-100.00")));
     }
 
     @Test

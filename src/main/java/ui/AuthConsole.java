@@ -32,9 +32,9 @@ public class AuthConsole {
 
         try {
             usuarioService.cadastrar(nome, cpf, senha);
-            System.out.println("Usuário cadastrado com sucesso!");
+            System.out.println(Cores.verde("Usuário cadastrado com sucesso!"));
         } catch (PixException e) {
-            System.out.println("Erro ao cadastrar: " + e.getMessage());
+            System.out.println(Cores.vermelho("Erro ao cadastrar: " + e.getMessage()));
         }
     }
 
@@ -49,9 +49,9 @@ public class AuthConsole {
 
         try {
             authService.login(cpf, senha);
-            System.out.println("Login realizado com sucesso!");
+            System.out.println(Cores.verde("Usuário cadastrado com sucesso!"));
         } catch (PixException e) {
-            System.out.println("Erro ao fazer login: " + e.getMessage());
+            System.out.println(Cores.vermelho("Erro ao fazer login: " + e.getMessage()));
         }
     }
 }

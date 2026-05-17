@@ -33,11 +33,11 @@ public class PixConsole {
         try {
             BigDecimal valor = new BigDecimal(valorStr);
             pixService.enviarPix(cpfDestino, valor);
-            System.out.println("PIX enviado! Aguardando confirmação do destinatário.");
+            System.out.println(Cores.verde("PIX enviado! Aguardando confirmação do destinatário."));
         } catch (PixException e) {
-            System.out.println("Erro ao enviar PIX: " + e.getMessage());
+            System.out.println(Cores.vermelho("Erro ao enviar PIX: " + e.getMessage()));
         } catch (NumberFormatException e) {
-            System.out.println("Valor inválido. Use o formato 100.00");
+            System.out.println(Cores.vermelho("Valor inválido. Use o formato 100.00"));
         }
     }
 
@@ -58,7 +58,7 @@ public class PixConsole {
             System.out.println("De: " + t.getContaOrigem().getUsuario().getNome()
                     + " (" + t.getContaOrigem().getUsuario().getCpf() + ")");
             System.out.println("Valor: R$ " + t.getValor());
-            System.out.println("Data: " + t.getDataHora());
+            System.out.println("Data: " + formatarData(t.getDataHora()));
         }
 
         System.out.println("\n1. Aceitar um PIX");
@@ -72,7 +72,7 @@ public class PixConsole {
             case "1" -> aceitarPix();
             case "2" -> rejeitarPix();
             case "0" -> {}
-            default -> System.out.println("Opção inválida.");
+            default -> System.out.println(Cores.vermelho("Opção inválida."));
         }
     }
 
@@ -82,9 +82,9 @@ public class PixConsole {
 
         try {
             pixService.aceitarPix(id);
-            System.out.println("PIX aceito! Saldo atualizado.");
+            System.out.println(Cores.verde("PIX aceito! Saldo atualizado."));
         } catch (PixException e) {
-            System.out.println("Erro ao aceitar PIX: " + e.getMessage());
+            System.out.println(Cores.vermelho("Erro ao aceitar PIX: " + e.getMessage()));
         }
     }
 
@@ -94,9 +94,9 @@ public class PixConsole {
 
         try {
             pixService.rejeitarPix(id);
-            System.out.println("PIX rejeitado. O valor foi devolvido ao remetente.");
+            System.out.println(Cores.verde("PIX rejeitado. O valor foi devolvido ao remetente."));
         } catch (PixException e) {
-            System.out.println("Erro ao rejeitar PIX: " + e.getMessage());
+            System.out.println(Cores.vermelho("Erro ao rejeitar PIX: " + e.getMessage()));
         }
     }
 

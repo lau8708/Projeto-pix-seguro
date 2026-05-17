@@ -62,7 +62,7 @@ public class MenuPrincipal {
                 System.out.println("Encerrando o sitema.");
                 System.exit(0);
             }
-            default -> System.out.println("Opção inválida. Tente novamente");
+            default -> System.out.println(Cores.vermelho("Opção inválida. Tente novamente"));
         }
     }
 
@@ -89,9 +89,9 @@ public class MenuPrincipal {
             case "6" -> pixConsole.exibirHistorico();
             case "0" -> {
                 authService.logout();
-                System.out.println("Logout realizado com sucesso");
+                System.out.println(Cores.verde("Logout realizado com sucesso"));
             }
-            default -> System.out.println("Opção inválida. Tente novamente");
+            default -> System.out.println(Cores.vermelho("Opção inválida. Tente novamente"));
         }
     }
 
@@ -110,9 +110,9 @@ public class MenuPrincipal {
             case "2" -> adminConsole.listarTransacoes();
             case "0" -> {
                 authService.logout();
-                System.out.println("Logout realizado com sucesso.");
+                System.out.println(Cores.verde("Logout realizado com sucesso."));
             }
-            default -> System.out.println("Opção inválida. Tente novamente.");
+            default -> System.out.println(Cores.vermelho("Opção inválida. Tente novamente."));
         }
     }
 }
