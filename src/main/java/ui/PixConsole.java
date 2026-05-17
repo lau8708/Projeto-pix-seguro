@@ -58,7 +58,7 @@ public class PixConsole {
             System.out.println("De: " + t.getContaOrigem().getUsuario().getNome()
                     + " (" + t.getContaOrigem().getUsuario().getCpf() + ")");
             System.out.println("Valor: R$ " + t.getValor());
-            System.out.println("Data: " + t.getDataHora());
+            System.out.println("Data: " + formatarData(t.getDataHora()));
         }
 
         System.out.println("\n1. Aceitar um PIX");
