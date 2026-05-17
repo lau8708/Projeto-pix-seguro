@@ -67,6 +67,9 @@ public class MenuPrincipal {
     }
 
     private void exibirMenuCliente(){
+
+        pixService.expirarTransacoesPendentes();
+
         String nome = authService.getUsuarioLogado().getNome();
         System.out.println("\n=== Bem Vindo, " + nome.toUpperCase() + "===");
         System.out.println("1. Depositar");

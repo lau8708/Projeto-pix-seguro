@@ -52,6 +52,10 @@ public class Transacao {
         this.statusTransacao = statusTransacao;
     }
 
+    public void setDataHora(LocalDateTime dataHora) {
+        this.dataHora = dataHora;
+    }
+
     public boolean isExpirada(){
         return LocalDateTime.now().isAfter(dataHora.plusHours(24));
     }

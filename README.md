@@ -120,13 +120,13 @@ Todos os repositórios usam `HashMap` para garantir performance:
 
 ## Testes unitários
 
-O projeto conta com **43 testes unitários** cobrindo todos os services:
+O projeto conta com **45 testes unitários** cobrindo todos os services:
 
 | Classe               | Testes    |
 |----------------------|-----------|
 | `UsuarioServiceTest` | 9 testes  |
 | `AuthServiceTest`    | 10 testes |
-| `PixServiceTest`     | 13 testes |
+| `PixServiceTest`     | 15 testes |
 | `ContaServiceTest`   | 11 testes |
 
 Para rodar os testes:

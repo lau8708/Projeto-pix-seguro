@@ -2,6 +2,8 @@ package services;
 
 import exception.*;
 import model.Conta;
+import model.Transacao;
+import model.enums.StatusTransacao;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import repository.ContaRepository;
@@ -9,6 +11,7 @@ import repository.TransacaoRepository;
 import repository.UsuarioRepository;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -238,5 +241,29 @@ public class PixServiceTest {
         Conta contaGolpista = contaRepository.buscarPorCpf("123.456.789-00");
         assertEquals(0, contaGolpista.getSaldo().compareTo(new BigDecimal("500.00")));
         assertEquals(0, contaGolpista.getSaldoReservado().compareTo(BigDecimal.ZERO));
+    }
+
+    // Testes de expiração
+
+    @Test
+    void deveLiberarReservaAoExpirarTransacaoAutomaticamente() {
+        // Arrange — João envia PIX para Maria
+        authService.login("123.456.789-00", "Senha@123");
+        pixService.enviarPix("987.654.321-00", new BigDecimal("100.00"));
+        authService.logout();
+
+        // simula que a transacao expirou — busca e força a data para o passado
+        Transacao transacao = transacaoRepository.listarTodas().iterator().next();
+        transacao.setDataHora(LocalDateTime.now().minusHours(25));
+
+        // Act — expira automaticamente
+        pixService.expirarTransacoesPendentes();
+
+        // Assert — reserva de João deve ser zero
+        Conta contaJoao = contaRepository.buscarPorCpf("123.456.789-00");
+        assertEquals(0, contaJoao.getSaldoReservado().compareTo(BigDecimal.ZERO));
+
+        // Assert — status deve ser REJEITADA
+        assertEquals(StatusTransacao.REJEITADA, transacao.getStatusTransacao());
     }
 }

@@ -72,15 +72,6 @@ public class PixService {
             throw new DestinatarioInvalidoException();
         }
 
-        // impede aceitar pix expirado
-        if (transacao.isExpirada()) {
-            Conta contaOrigem = transacao.getContaOrigem();
-            contaOrigem.setSaldoReservado(contaOrigem.getSaldoReservado().subtract(transacao.getValor()));
-            transacao.setStatusTransacao(StatusTransacao.REJEITADA);
-            transacaoRepository.salvar(transacao);
-            throw new TransacaoExpiradaException();
-        }
-
         // impede aceitar pix que nao esta pendente
         if (transacao.getStatusTransacao() != StatusTransacao.PENDENTE) {
             throw new TransacaoNaoPendenteException();
@@ -146,5 +137,21 @@ public class PixService {
 
         // retorna todas as transacoes que envolvem a conta do logado
         return transacaoRepository.listarPorConta(contaLogada);
+    }
+
+    public void expirarTransacoesPendentes(){
+        for (Transacao transacao : transacaoRepository.listarTodas()){
+            if (transacao.getStatusTransacao() == StatusTransacao.PENDENTE
+            && transacao.isExpirada()){
+
+                // libera a reserva do remetente
+                Conta contaOrigem = transacao.getContaOrigem();
+                contaOrigem.setSaldoReservado(contaOrigem.getSaldoReservado().subtract(transacao.getValor()));
+
+                // muda status para rejeitada
+                transacao.setStatusTransacao(StatusTransacao.REJEITADA);
+                transacaoRepository.salvar(transacao);
+            }
+        }
     }
 }
