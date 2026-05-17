@@ -32,13 +32,13 @@ public class ContaService {
     public void sacar(BigDecimal valor) {
 
         if (valor.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new ValorInvalidoException();
+            throw new ValorSaqueInvalidoException("O valor do saque deve ser maior que zero.");
         }
 
         Conta conta = contaRepository.buscarPorCpf(authService.getUsuarioLogado().getCpf());
 
         if (conta.getSaldoDisponivel().compareTo(valor) < 0) {
-            throw new ValorSaqueInvalidoException();
+            throw new ValorSaqueInvalidoException("Saldo insuficiente para realizar o saque.");
         }
 
         conta.setSaldo(conta.getSaldo().subtract(valor));
