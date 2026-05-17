@@ -109,7 +109,7 @@ public class PixServiceTest {
     }
 
     // Testes de aceitar PIX
-
+    @Test
     void deveAceitarPixComSucesso(){
         // Arrange - João envia PIX para Maria
         authService.login("123.456.789-00", "Senha@123");
